@@ -4,7 +4,7 @@
 
 **First, a major, MAJOR caveat**: the security of your servers is YOUR responsibility. If you think simply including this role and adding a firewall makes a server secure, then you're mistaken. Read up on Linux, network, and application security, and know that no matter how much you know, you can always make every part of your stack more secure.
 
-That being said, this role performs some basic security configuration on RedHat and Debian-based linux systems. At a basic level, it attempts to:
+That being said, this role performs some basic security configuration on RedHat and Debian-based linux systems. It attempts to:
 
   - Install software to monitor bad SSH access (fail2ban)
   - Configure SSH to be more secure (disabling root login, requiring key-based authentication, and allowing a custom SSH port to be set)
