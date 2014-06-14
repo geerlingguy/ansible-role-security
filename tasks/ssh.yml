@@ -1,0 +1,30 @@
+---
+- name: Update SSH configuration to be more secure.
+  lineinfile: >
+    dest={{ security_ssh_config_path }}
+    regexp="{{ item.regexp }}"
+    line="{{ item.line }}"
+    state=present
+  with_items:
+    - { regexp: "^PasswordAuthentication", line: "PasswordAuthentication no" }
+    - { regexp: "^PermitRootLogin", line: "PermitRootLogin no" }
+    - { regexp: "^Port", line: "Port {{ security_ssh_port }}" }
+  notify: restart ssh
+
+- name: Add configured user accounts to passwordless sudoers.
+  lineinfile: >
+    dest=/etc/sudoers
+    regexp='^{{ item }}'
+    line='{{ item }} ALL=(ALL) NOPASSWD: ALL'
+    state=present
+  with_items: security_sudoers_passwordless
+  when: security_sudoers_passwordless
+
+- name: Add configured user accounts to passworded sudoers.
+  lineinfile: >
+    dest=/etc/sudoers
+    regexp='^{{ item }}'
+    line='{{ item }} ALL=(ALL) NOPASSWD: ALL'
+    state=present
+  with_items: security_sudoers_passworded
+  when: security_sudoers_passworded

@@ -1,0 +1,6 @@
+---
+- name: Install yum-cron.
+  yum: pkg=yum-cron state=installed
+
+- name: Ensure yum-cron is running and enabled on boot.
+  service: name=yum-cron state=started enabled=yes

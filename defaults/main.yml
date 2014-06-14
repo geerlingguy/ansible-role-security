@@ -1,0 +1,5 @@
+---
+security_ssh_port: 22
+security_sudoers_passwordless: []
+security_sudoers_passworded: []
+security_autoupdate_enabled: true
