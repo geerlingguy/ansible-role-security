@@ -20,6 +20,8 @@ Again: Your servers' security is *your* responsibility.
 
 ## Requirements
 
+For obvious reasons, `sudo` must be installed if you want to manage the sudoers file with this role.
+
 On RedHat/CentOS systems, make sure you have the EPEL repository installed (you can include the `geerlingguy.repo-epel` role to get it installed).
 
 No special requirements for Debian/Ubuntu systems.
