@@ -24,7 +24,7 @@
   lineinfile: >
     dest=/etc/sudoers
     regexp='^{{ item }}'
-    line='{{ item }} ALL=(ALL) NOPASSWD: ALL'
+    line='{{ item }} ALL=(ALL)'
     state=present
   with_items: security_sudoers_passworded
   when: security_sudoers_passworded
