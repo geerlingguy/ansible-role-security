@@ -1,7 +1,9 @@
 ---
-security_ssh_password_authentication: no
 security_ssh_port: 22
-security_ssh_root_login: no
+security_ssh_password_authentication: no
+security_ssh_permit_root_login: no
+
 security_sudoers_passwordless: []
 security_sudoers_passworded: []
+
 security_autoupdate_enabled: true
