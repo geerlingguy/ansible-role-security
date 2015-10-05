@@ -6,8 +6,8 @@
     line="{{ item.line }}"
     state=present
   with_items:
-    - { regexp: "^PasswordAuthentication", line: "PasswordAuthentication no" }
-    - { regexp: "^PermitRootLogin", line: "PermitRootLogin no" }
+    - { regexp: "^PasswordAuthentication", line: "PasswordAuthentication {{ security_ssh_password_authentication }}" }
+    - { regexp: "^PermitRootLogin", line: "PermitRootLogin {{ security_ssh_root_login }}" }
     - { regexp: "^Port", line: "Port {{ security_ssh_port }}" }
   notify: restart ssh
 
