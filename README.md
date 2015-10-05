@@ -58,7 +58,7 @@ None.
       vars_files:
         - vars/main.yml
       roles:
-        - { role: geerlingguy.security }
+        - geerlingguy.security
 
 *Inside `vars/main.yml`*:
 
@@ -68,7 +68,7 @@ None.
 
 ## License
 
-MIT / BSD
+MIT (Expat) / BSD
 
 ## Author Information
 
