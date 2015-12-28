@@ -34,8 +34,8 @@ Available variables are listed below, along with default values (see `vars/main.
 
 The port through which you'd like SSH to be accessible. The default is port 22, but if you're operating a server on the open internet, and have no firewall blocking access to port 22, you'll quickly find that thousands of login attempts per day are not uncommon. You can change the port to a nonstandard port (e.g. 2849) if you want to avoid these thousands of automated penetration attempts.
 
-    security_ssh_password_authentication: no
-    security_ssh_permit_root_login: no
+    security_ssh_password_authentication: 'no'
+    security_ssh_permit_root_login: 'no'
 
 Security settings for SSH authentication. It's best to leave these both set to `no`, but there are times (especially during initial server configuration or when you don't have key-based authentication in place) when one or both may be safely set to `yes`.
 
