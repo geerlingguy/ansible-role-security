@@ -37,7 +37,7 @@ The port through which you'd like SSH to be accessible. The default is port 22, 
     security_ssh_password_authentication: 'no'
     security_ssh_permit_root_login: 'no'
 
-Security settings for SSH authentication. It's best to leave these both set to `no`, but there are times (especially during initial server configuration or when you don't have key-based authentication in place) when one or both may be safely set to `yes`.
+Security settings for SSH authentication. It's best to leave these both set to `'no'`, but there are times (especially during initial server configuration or when you don't have key-based authentication in place) when one or both may be safely set to `'yes'`.
 
     security_sudoers_passwordless: []
     security_sudoers_passworded: []
