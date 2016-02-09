@@ -10,10 +10,10 @@ env:
     version: 7
     init: /usr/lib/systemd/systemd
     run_opts: "--privileged --volume=/sys/fs/cgroup:/sys/fs/cgroup:ro"
-  - distribution: ubuntu
-    version: 14.04
-    init: /sbin/init
-    run_opts: ""
+  # - distribution: ubuntu
+  #   version: 14.04
+  #   init: /sbin/init
+  #   run_opts: ""
   - distribution: ubuntu
     version: 12.04
     init: /sbin/init
@@ -38,7 +38,6 @@ script:
   - 'sudo docker exec --tty "$(cat ${container_id})" env TERM=xterm ansible-playbook /etc/ansible/roles/role_under_test/tests/test.yml --syntax-check'
 
   # Test role.
-  - 'sudo docker exec --tty "$(cat ${container_id})" env TERM=xterm ansible-playbook /etc/ansible/roles/role_under_test/tests/test.yml'
   - 'sudo docker exec --tty "$(cat ${container_id})" env TERM=xterm ansible-playbook /etc/ansible/roles/role_under_test/tests/test.yml'
 
   # Test role idempotence.
