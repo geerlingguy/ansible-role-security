@@ -28,7 +28,7 @@ No special requirements for Debian/Ubuntu systems.
 
 ## Role Variables
 
-Available variables are listed below, along with default values (see `vars/main.yml`):
+Available variables are listed below, along with default values (see `defaults/main.yml`):
 
     security_ssh_port: 22
 
