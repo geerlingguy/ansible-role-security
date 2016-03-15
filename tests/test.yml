@@ -1,4 +1,6 @@
 - hosts: all
+  vars:
+    security_redhat_use_dnf: false
 
   pre_tasks:
     - name: Ensure build dependencies are installed (RedHat).
@@ -6,7 +8,14 @@
       with_items:
         - openssh-server
         - openssh-clients
-      when: ansible_os_family == 'RedHat'
+      when: ansible_os_family == 'RedHat' and not security_redhat_use_dnf
+
+    - name: Ensure build dependencies are installed (RedHat DNF).
+      dnf: 'name="{{ item }}" state=present'
+      with_items:
+        - openssh-server
+        - openssh-clients
+      when: ansible_os_family == 'RedHat' and security_redhat_use_dnf
 
     - name: Ensure build dependencies are installed (Debian).
       apt: 'name="{{ item }}" state=installed'

@@ -1,0 +1,3 @@
+---
+- name: Install fail2ban using DNF.
+  dnf: name=fail2ban state=present

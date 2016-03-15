@@ -1,0 +1,13 @@
+---
+- name: Install dnf-automatic.
+  dnf: name=dnf-automatic state=present
+
+- name: Turn on autoupdates.
+  lineinfile:
+    dest: "/etc/dnf/automatic.conf"
+    regexp: '^apply_updates = .+'
+    line: 'apply_updates = yes'
+  when: security_autoupdate_enabled
+
+- name: Ensure autoupdate service timer is running and enabled on boot.
+  service: name=dnf-automatic.timer state=started enabled=yes

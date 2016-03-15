@@ -7,3 +7,5 @@ security_sudoers_passwordless: []
 security_sudoers_passworded: []
 
 security_autoupdate_enabled: true
+# Fedora 22+ uses DNF by default
+security_redhat_use_dnf: false
