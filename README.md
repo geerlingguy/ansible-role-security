@@ -48,6 +48,10 @@ A list of users who should be added to the sudoers file so they can run any comm
 
 Whether to install/enable `yum-cron` (RedHat-based systems) or `unattended-upgrades` (Debian-based systems). System restarts will not happen automatically in any case, and automatic upgrades are no excuse for sloppy patch and package management, but automatic updates can be helpful as yet another security measure.
 
+    security_fail2ban_enabled: true
+
+Wether to install/enable `fail2ban`
+
 ## Dependencies
 
 None.
