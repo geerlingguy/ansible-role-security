@@ -45,6 +45,13 @@ Security settings for SSH authentication. It's best to leave these both set to `
 A list of users who should be added to the sudoers file so they can run any command as root (via `sudo`) either without a password or requiring a password for each command, respectively.
 
     security_autoupdate_enabled: true
+    security_autoupdate_mail_to: ""
+    security_autoupdate_mail_on_error: true
+    
+If `security_autoupdate_mail_to` is set to an non empty value, unattended upgrades will send an e-mail to that address
+when some error occurs. You may either set this to a full email: `ops@example.com` or to something like `root`, which 
+will use `/etc/aliases` to route message. If you set ``security_autoupdate_mail_on_error`` to false you'll get an 
+email after every package install. 
 
 Whether to install/enable `yum-cron` (RedHat-based systems) or `unattended-upgrades` (Debian-based systems). System restarts will not happen automatically in any case, and automatic upgrades are no excuse for sloppy patch and package management, but automatic updates can be helpful as yet another security measure.
 
