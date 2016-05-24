@@ -12,6 +12,8 @@
       line: "PermitRootLogin {{ security_ssh_permit_root_login }}"
     - regexp: "^Port"
       line: "Port {{ security_ssh_port }}"
+    - regexp: "^UseDNS"
+      line: "UseDNS {{ security_ssh_usedns }}"
   notify: restart ssh
 
 - name: Add configured user accounts to passwordless sudoers.
