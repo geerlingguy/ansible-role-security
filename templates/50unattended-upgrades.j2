@@ -1,7 +1,7 @@
 Unattended-Upgrade::Automatic-Reboot "false";
 
 {% if security_autoupdate_mail_to %}
-Unattended-Upgrade::Mail "{{security_autoupdate_mail_to}}";
+Unattended-Upgrade::Mail "{{ security_autoupdate_mail_to }}";
 {% if security_autoupdate_mail_on_error %}
 Unattended-Upgrade::MailOnlyOnError "true";
 {% endif %}

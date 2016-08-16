@@ -12,6 +12,8 @@ security_sudoers_passwordless: []
 security_sudoers_passworded: []
 
 security_autoupdate_enabled: true
+
+# Autoupdate mail settings used on Debian/Ubuntu only.
 security_autoupdate_mail_to: ""
 security_autoupdate_mail_on_error: true
 
