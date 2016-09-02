@@ -1,0 +1,19 @@
+---
+
+#TCP Wrappers
+- name: Install TCP Wrapper
+  apt: pkg={{ item }} state=present
+  when: ansible_distribution == 'Debian'    
+  with_items:
+    - tcpd
+
+- name: TCP Wrappers deny file
+  template: src=hosts.deny.j2 dest=/etc/hosts.deny 
+  when: ansible_distribution == 'Debian' or ansible_distribution == 'Ubuntu' and tcp_wrappers_enabled
+  tags: configure
+    
+- name: TCP Wrappers allow file
+  template: src=hosts.allow.j2 dest=/etc/hosts.allow 
+  when: ansible_distribution == 'Debian' or ansible_distribution == 'Ubuntu' and tcp_wrappers_enabled  
+  notify: restart tcpd  
+  tags: configure  

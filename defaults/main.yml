@@ -18,3 +18,34 @@ security_autoupdate_mail_to: ""
 security_autoupdate_mail_on_error: true
 
 security_fail2ban_enabled: true
+
+rlogin_enabled: true # Turn it to false in order to uninstall
+ftp_enabled: true # Turn it to false in order to uninstall
+telnet_enabled: true # Turn it to false in order to uninstall
+stats_enabled: true # Turn it to false in order to uninstall
+sudoers_enabled: true # Turn it to false in order not to override /etc/sudoers
+restart_ssh_enabled: true # Turn it to false when testing script
+restart_tcp_enabled: true # Turn it to false when testing script
+
+#defaultdomain: home.nabla.mobi already defined in all file
+# Who has sudo access - use %foo for groups
+sudo_users:
+  - "%wheel"
+  - "%jenkins"
+
+# Do users need to enter a password?
+sudo_nopasswd: true
+
+#TCP Wrappers : See http://www.cyberciti.biz/faq/tcp-wrappers-hosts-allow-deny-tutorial/
+tcp_wrappers_enabled: true # Enable TCP wrappers
+security_tcpd_name: tcpd
+tcp_wrappers_deny:
+  - "ALL: ALL DENY"
+#tcp_wrapper_deny: ALL:ALL EXCEPT localhost:DENY
+tcp_wrappers_allow:
+  - "ALL : 127.0.0.1"
+  - "telnetd : ALL : deny"
+  - "proftpd : ALL : deny"
+#  - "ALL : 10.10.10." #My local network
+#  - "ALL : 212.226.x.x" #My work network
+#  - "sendmail : ALL : ALLOW"

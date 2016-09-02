@@ -13,8 +13,63 @@
   service: name=fail2ban state=started enabled=yes
   when: security_fail2ban_enabled
 
+#This script will override current /etc/sudoers (for security reason)
+- name: Sudoers file
+  template: src=sudoers.j2 dest=/etc/sudoers validate='/usr/sbin/visudo -cf %s'
+  when: (ansible_distribution == 'Debian' or ansible_distribution == 'Ubuntu') and sudoers_enabled
+  tags: configure
+
 # SSH
 - include: ssh.yml
+
+#Uninstall rlogin
+- name: Uninstall xinetd for rlogin rsh rexec
+  apt: >
+    pkg={{ item }}
+    state=absent
+    purge=yes
+    force=yes
+  when: (ansible_distribution == 'Debian' or ansible_distribution == 'Ubuntu') and rlogin_enabled
+  tags: package
+  with_items:
+    - xinetd
+
+#Uninstall telnet
+- name: Uninstall telnet
+  apt: >
+    pkg=telnet
+    state=absent
+    purge=yes
+    force=yes
+  when: (ansible_distribution == 'Debian' or ansible_distribution == 'Ubuntu') and telnet_enabled
+  tags: package
+
+#Uninstall ftp
+- name: Uninstall ftp
+  apt: >
+    pkg=ftp
+    state=absent
+    purge=yes
+    force=yes
+  when: (ansible_distribution == 'Debian' or ansible_distribution == 'Ubuntu') and ftp_enabled
+  tags: package
+
+#Uninstall stats tools
+- name: Uninstall stats tools
+  apt: >
+    pkg={{ item }}
+    state=absent
+    purge=yes
+    force=yes
+  when: (ansible_distribution == 'Debian' or ansible_distribution == 'Ubuntu') and stats_enabled
+  tags: package
+  with_items:
+    - finger
+    - sysstat
+    - net-tools # for netstat
+    - rusersd
+    - rwho
+    - rwhod
 
 # Autoupdate
 - include: autoupdate-RedHat.yml
