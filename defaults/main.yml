@@ -27,7 +27,6 @@ sudoers_enabled: true # Turn it to false in order not to override /etc/sudoers
 restart_ssh_enabled: true # Turn it to false when testing script
 restart_tcp_enabled: true # Turn it to false when testing script
 
-#defaultdomain: home.nabla.mobi already defined in all file
 # Who has sudo access - use %foo for groups
 sudo_users:
   - "%wheel"
@@ -49,3 +48,7 @@ tcp_wrappers_allow:
 #  - "ALL : 10.10.10." #My local network
 #  - "ALL : 212.226.x.x" #My work network
 #  - "sendmail : ALL : ALLOW"
+
+proxy_repo_enabled: false
+proxy_repo_server: "localhost"
+proxy_repo_url: "http://{{ proxy_repo_server }}:3142"
