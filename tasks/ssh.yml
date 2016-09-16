@@ -1,4 +1,10 @@
 ---
+- name: Install ssh
+  apt: pkg={{ item }} state=present
+  when: ansible_distribution == 'Debian'
+  with_items:
+    - ssh
+
 - name: Update SSH configuration to be more secure.
   lineinfile:
     dest: "{{ security_ssh_config_path }}"

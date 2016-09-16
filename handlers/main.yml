@@ -1,3 +1,8 @@
 ---
 - name: restart ssh
   service: "name={{ security_sshd_name }} state=restarted"
+  when: restart_ssh_enabled
+
+- name: restart tcpd
+  service: "name={{ security_tcpd_name }} state=restarted"
+  when: restart_tcp_enabled

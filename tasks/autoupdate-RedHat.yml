@@ -1,3 +1,4 @@
+
 ---
 - name: Install yum-cron.
   yum: name=yum-cron state=present

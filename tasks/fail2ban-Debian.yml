@@ -1,3 +1,4 @@
 ---
 - name: Install fail2ban.
   apt: name=fail2ban state=present
+#  when: (ansible_distribution_version not in ['12.04'])
