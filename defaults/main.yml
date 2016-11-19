@@ -16,5 +16,7 @@ security_autoupdate_enabled: true
 # Autoupdate mail settings used on Debian/Ubuntu only.
 security_autoupdate_mail_to: ""
 security_autoupdate_mail_on_error: true
-
+security_autoupdate_blacklist: []
 security_fail2ban_enabled: true
+
+
