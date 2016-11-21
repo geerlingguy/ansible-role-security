@@ -51,7 +51,7 @@ Whether to install/enable `yum-cron` (RedHat-based systems) or `unattended-upgra
 
     security_autoupdate_blacklist: []
 
-(Debian/Ubuntu only) A listing of packages that should no be automatically updated.
+(Debian/Ubuntu only) A listing of packages that should not be automatically updated.
 
     security_autoupdate_mail_to: ""
     security_autoupdate_mail_on_error: true
