@@ -1,6 +1,6 @@
 # Ansible Role: Security (Basics)
 
-[![Build Status](https://travis-ci.org/geerlingguy/ansible-role-security.svg?branch=master)](https://travis-ci.org/geerlingguy/ansible-role-security)
+[![Build Status](https://travis-ci.org/buluma/ansible-sensu-install.svg?branch=master)](https://travis-ci.org/buluma/ansible-sensu-install)
 
 **First, a major, MAJOR caveat**: the security of your servers is YOUR responsibility. If you think simply including this role and adding a firewall makes a server secure, then you're mistaken. Read up on Linux, network, and application security, and know that no matter how much you know, you can always make every part of your stack more secure.
 
@@ -14,7 +14,7 @@ There are a few other things you may or may not want to do (which are not includ
 
   - Use logwatch or a centralized logging server to analyze and monitor log files
   - Securely configure user accounts and SSH keys (this role assumes you're not using password authentication or logging in as root)
-  - Have a well-configured firewall (check out the `geerlingguy.firewall` role on Ansible Galaxy for a flexible example)
+  - Have a well-configured firewall (check out the `geerlingguy.firewall` role on Ansible Galaxy for a flexible example). 
 
 Again: Your servers' security is *your* responsibility.
 
@@ -72,7 +72,7 @@ None.
       vars_files:
         - vars/main.yml
       roles:
-        - geerlingguy.security
+        - buluma.security
 
 *Inside `vars/main.yml`*:
 
