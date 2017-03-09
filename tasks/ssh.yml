@@ -2,7 +2,7 @@
 - name: Update SSH configuration to be more secure.
   template:
     src: templates/sshd_config.j2
-    dest: /etc/ssh/sshd_config
+    dest: {{ security_ssh_config_path }}
     owner: root
     group: root
     mode: '0600'
