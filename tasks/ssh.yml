@@ -1,27 +1,13 @@
 ---
 - name: Update SSH configuration to be more secure.
-  lineinfile:
-    dest: "{{ security_ssh_config_path }}"
-    regexp: "{{ item.regexp }}"
-    line: "{{ item.line }}"
-    state: present
-  with_items:
-    - regexp: "^PasswordAuthentication"
-      line: "PasswordAuthentication {{ security_ssh_password_authentication }}"
-    - regexp: "^PermitRootLogin"
-      line: "PermitRootLogin {{ security_ssh_permit_root_login }}"
-    - regexp: "^Port"
-      line: "Port {{ security_ssh_port }}"
-    - regexp: "^UseDNS"
-      line: "UseDNS {{ security_ssh_usedns }}"
-    - regexp: "^PermitEmptyPasswords"
-      line: "PermitEmptyPasswords {{ security_ssh_permit_empty_password }}"
-    - regexp: "^ChallengeResponseAuthentication"
-      line: "ChallengeResponseAuthentication {{ security_ssh_challenge_response_auth }}"
-    - regexp: "^GSSAPIAuthentication"
-      line: "GSSAPIAuthentication {{ security_ssh_gss_api_authentication }}"
-    - regexp: "^X11Forwarding"
-      line: "X11Forwarding {{ security_ssh_x11_forwarding }}"
+  template:
+    src: templates/sshd_config.j2
+    dest: /etc/ssh/sshd_config
+    owner: root
+    group: root
+    mode: '0600'
+    validate: /usr/sbin/sshd -t -f %s
+    backup: yes
   notify: restart ssh
 
 - name: Add configured user accounts to passwordless sudoers.
