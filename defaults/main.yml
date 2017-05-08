@@ -7,6 +7,8 @@ security_ssh_permit_empty_password: "no"
 security_ssh_challenge_response_auth: "no"
 security_ssh_gss_api_authentication: "no"
 security_ssh_x11_forwarding: "no"
+security_ssh_max_auth_tries: 4
+security_ssh_allow_users: ubuntu
 
 security_sudoers_passwordless: []
 security_sudoers_passworded: []
