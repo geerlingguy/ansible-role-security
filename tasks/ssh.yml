@@ -22,6 +22,10 @@
       line: "GSSAPIAuthentication {{ security_ssh_gss_api_authentication }}"
     - regexp: "^X11Forwarding"
       line: "X11Forwarding {{ security_ssh_x11_forwarding }}"
+    - regexp: "^AllowUsers"
+      line: "AllowUsers {{ security_ssh_allow_users }}"
+    - regexp: "^MaxAuthTries"
+      line: "MaxAuthTries {{ security_ssh_max_auth_tries }}"
   notify: restart ssh
 
 - name: Add configured user accounts to passwordless sudoers.
