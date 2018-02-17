@@ -2,7 +2,7 @@
 
   pre_tasks:
     - name: Update apt cache.
-      apt: update_cache=yes cache_valid_time=600
+      package: update_cache=yes cache_valid_time=600
       when: ansible_os_family == 'Debian'
 
     - name: Ensure build dependencies are installed (RedHat).
@@ -13,7 +13,7 @@
       when: ansible_os_family == 'RedHat'
 
     - name: Ensure build dependencies are installed (Debian).
-      apt: 'name="{{ item }}" state=present'
+      package: 'name="{{ item }}" state=present'
       with_items:
         - openssh-server
         - openssh-client

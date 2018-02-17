@@ -11,6 +11,9 @@ galaxy_info:
     - name: EL
       versions:
       - all
+    - name: Fedora
+      versions:
+      - all
     - name: Debian
       versions:
       - all
@@ -20,3 +23,9 @@ galaxy_info:
   galaxy_tags:
     - system
     - security
+    - fail2ban
+    - automatic-updates
+    - yum
+    - apt
+    - dnf
+    - hardening
