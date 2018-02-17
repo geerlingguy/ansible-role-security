@@ -12,6 +12,12 @@
         - openssh-clients
       when: ansible_os_family == 'RedHat'
 
+    - name: Ensure build dependencies are installed (Fedora).
+      package: 'name="{{ item }}" state=present'
+      with_items:
+        - procps
+      when: ansible_distribution == 'Fedora'
+
     - name: Ensure build dependencies are installed (Debian).
       package: 'name="{{ item }}" state=present'
       with_items:
