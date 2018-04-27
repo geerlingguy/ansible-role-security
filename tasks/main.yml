@@ -3,10 +3,10 @@
   include_vars: "{{ ansible_os_family }}.yml"
 
 # Fail2Ban
-- import_tasks: fail2ban-RedHat.yml
+- include_tasks: fail2ban-RedHat.yml
   when: ansible_os_family == 'RedHat' and security_fail2ban_enabled
 
-- import_tasks: fail2ban-Debian.yml
+- include_tasks: fail2ban-Debian.yml
   when: ansible_os_family == 'Debian' and security_fail2ban_enabled
 
 - name: Ensure fail2ban is running and enabled on boot.
@@ -14,11 +14,11 @@
   when: security_fail2ban_enabled
 
 # SSH
-- import_tasks: ssh.yml
+- include_tasks: ssh.yml
 
 # Autoupdate
-- import_tasks: autoupdate-RedHat.yml
+- include_tasks: autoupdate-RedHat.yml
   when: ansible_os_family == 'RedHat' and security_autoupdate_enabled
 
-- import_tasks: autoupdate-Debian.yml
+- include_tasks: autoupdate-Debian.yml
   when: ansible_os_family == 'Debian' and security_autoupdate_enabled
