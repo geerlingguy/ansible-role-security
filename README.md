@@ -45,9 +45,15 @@ Security settings for SSH authentication. It's best to leave these set to `"no"`
 
 A list of users who should be added to the sudoers file so they can run any command as root (via `sudo`) either without a password or requiring a password for each command, respectively.
 
+    security_fail2ban_enabled: true
+
+Wether to install/enable `fail2ban`. You might not want to use fail2ban if you're already using some other service for login and intrusion detection (e.g. [ConfigServer](http://configserver.com/cp/csf.html)).
+
     security_autoupdate_enabled: true
 
 Whether to install/enable `yum-cron` (RedHat-based systems) or `unattended-upgrades` (Debian-based systems). System restarts will not happen automatically in any case, and automatic upgrades are no excuse for sloppy patch and package management, but automatic updates can be helpful as yet another security measure.
+
+### AutoUpdates specific to Debian based distributions
 
     security_autoupdate_blacklist: []
 
@@ -58,9 +64,29 @@ Whether to install/enable `yum-cron` (RedHat-based systems) or `unattended-upgra
 
 (Debian/Ubuntu only) If `security_autoupdate_mail_to` is set to an non empty value, unattended upgrades will send an e-mail to that address when some error occurs. You may either set this to a full email: `ops@example.com` or to something like `root`, which will use `/etc/aliases` to route the message. If you set `security_autoupdate_mail_on_error` to `false` you'll get an email after every package install.
 
-    security_fail2ban_enabled: true
+### Autoupdates specific to Debian and Ubuntu releases
 
-Wether to install/enable `fail2ban`. You might not want to use fail2ban if you're already using some other service for login and intrusion detection (e.g. [ConfigServer](http://configserver.com/cp/csf.html)).
+The following settings will configure the Unattended-Upgrade configuration file to support more customization. Please see the template files and NOT the `vars/main.yml` (as setting these values at all in either direction will change whether they appear commented in the resulting file) for what these values will change. This has not been applied to all Debian Derivatives, only Debian and Ubuntu.
+
+    security_autoupdate_train_main: true
+    security_autoupdate_train_security: true
+    security_autoupdate_train_esm: true (Ubuntu only)
+    security_autoupdate_train_updates: false
+    security_autoupdate_train_proposed: false
+    security_autoupdate_devrelease: false (Ubuntu only)
+    security_autoupdate_auto_fix_interrupted_dpkg: false
+    security_autoupdate_minimal_steps: false
+    security_autoupdate_install_on_shutdown: true (Debian only)
+    security_autoupdate_install_on_shutdown: true
+    security_autoupdate_remove_unused_kernel_packages: false
+    security_autoupdate_remove_unused_dependencies: false
+    security_autoupdate_reboot: false
+    security_autoupdate_reboot_time: "02:00"
+    security_autoupdate_download_limit: 70
+    security_autoupdate_syslog_enable: false
+    security_autoupdate_syslog_facility: daemon
+    security_autoupdate_on_ac_only: true
+    security_autoupdate_on_non_metered: true
 
 ## Dependencies
 
