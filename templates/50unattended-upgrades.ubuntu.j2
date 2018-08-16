@@ -6,15 +6,15 @@
 // from non-security sources (e.g. chromium). By allowing the release
 // pocket these get automatically pulled in.
 Unattended-Upgrade::Allowed-Origins {
-{% if not security_autoupdate_train_main | default('true') %}//{% endif %}        "${distro_id}:${distro_codename}";
-{% if not security_autoupdate_train_security | default('true') %}//{% endif %}        "${distro_id}:${distro_codename}-security";
+{% if not security_autoupdate_train_main | default(true) %}//{% endif %}        "${distro_id}:${distro_codename}";
+{% if not security_autoupdate_train_security | default(true) %}//{% endif %}        "${distro_id}:${distro_codename}-security";
         // Extended Security Maintenance; doesn't necessarily exist for
         // every release and this system may not have it installed, but if
         // available, the policy for updates is such that unattended-upgrades
         // should also install from here by default.
-{% if not security_autoupdate_train_esm | default('true') %}//{% endif %}        "${distro_id}ESM:${distro_codename}";
-{% if not security_autoupdate_train_updates | default('false') %}//{% endif %}      "${distro_id}:${distro_codename}-updates";
-{% if not security_autoupdate_train_proposed | default('false') %}//{% endif %}      "${distro_id}:${distro_codename}-proposed";
+{% if not security_autoupdate_train_esm | default(true) %}//{% endif %}        "${distro_id}ESM:${distro_codename}";
+{% if not security_autoupdate_train_updates | default(false) %}//{% endif %}      "${distro_id}:${distro_codename}-updates";
+{% if not security_autoupdate_train_proposed | default(false) %}//{% endif %}      "${distro_id}:${distro_codename}-proposed";
 //      "${distro_id}:${distro_codename}-backports";
 };
 
@@ -31,24 +31,24 @@ Unattended-Upgrade::Package-Blacklist {
 
 // This option will controls whether the development release of Ubuntu will be
 // upgraded automatically.
-Unattended-Upgrade::DevRelease "{% if security_autoupdate_devrelease | default('false') %}true{% else %}false{% endif %}";
+Unattended-Upgrade::DevRelease "{% if security_autoupdate_devrelease | default(false) %}true{% else %}false{% endif %}";
 
 // This option allows you to control if on a unclean dpkg exit
 // unattended-upgrades will automatically run
 //   dpkg --force-confold --configure -a
 // The default is true, to ensure updates keep getting installed
-{% if security_autoupdate_auto_fix_interrupted_dpkg is not defined %}//{% endif %}Unattended-Upgrade::AutoFixInterruptedDpkg "{% if security_autoupdate_auto_fix_interrupted_dpkg | default('false') %}true{% else %}false{% endif %}";
+{% if security_autoupdate_auto_fix_interrupted_dpkg is not defined %}//{% endif %}Unattended-Upgrade::AutoFixInterruptedDpkg "{% if security_autoupdate_auto_fix_interrupted_dpkg | default(false) %}true{% else %}false{% endif %}";
 
 // Split the upgrade into the smallest possible chunks so that
 // they can be interrupted with SIGTERM. This makes the upgrade
 // a bit slower but it has the benefit that shutdown while a upgrade
 // is running is possible (with a small delay)
-{% if security_autoupdate_minimal_steps is not defined %}//{% endif %}Unattended-Upgrade::MinimalSteps "{% if security_autoupdate_minimal_steps | default('false') %}true{% else %}false{% endif %}";
+{% if security_autoupdate_minimal_steps is not defined %}//{% endif %}Unattended-Upgrade::MinimalSteps "{% if security_autoupdate_minimal_steps | default(false) %}true{% else %}false{% endif %}";
 
 // Install all unattended-upgrades when the machine is shutting down
 // instead of doing it in the background while the machine is running
 // This will (obviously) make shutdown slower
-{% if security_autoupdate_install_on_shutdown is not defined %}//{% endif %}Unattended-Upgrade::InstallOnShutdown "{% if security_autoupdate_install_on_shutdown | default('true') %}true{% else %}false{% endif %}";
+{% if security_autoupdate_install_on_shutdown is not defined %}//{% endif %}Unattended-Upgrade::InstallOnShutdown "{% if security_autoupdate_install_on_shutdown | default(true) %}true{% else %}false{% endif %}";
 
 // Send email to this address for problems or packages upgrades
 // If empty or unset then no email is sent, make sure that you
@@ -58,19 +58,19 @@ Unattended-Upgrade::DevRelease "{% if security_autoupdate_devrelease | default('
 
 // Set this value to "true" to get emails only on errors. Default
 // is to always send a mail if Unattended-Upgrade::Mail is set
-{% if security_autoupdate_mail_on_error is not defined %}//{% endif %}Unattended-Upgrade::MailOnlyOnError "{% if security_autoupdate_mail_on_error | default('true') %}true{% else %}false{% endif %}";
+{% if security_autoupdate_mail_on_error is not defined %}//{% endif %}Unattended-Upgrade::MailOnlyOnError "{% if security_autoupdate_mail_on_error | default(true) %}true{% else %}false{% endif %}";
 
 // Remove unused automatically installed kernel-related packages
 // (kernel images, kernel headers and kernel version locked tools).
-{% if security_autoupdate_remove_unused_kernel_packages is not defined %}//{% endif %}Unattended-Upgrade::Remove-Unused-Kernel-Packages "{% if security_autoupdate_remove_unused_kernel_packages | default('false') %}true{% else %}false{% endif %}";
+{% if security_autoupdate_remove_unused_kernel_packages is not defined %}//{% endif %}Unattended-Upgrade::Remove-Unused-Kernel-Packages "{% if security_autoupdate_remove_unused_kernel_packages | default(false) %}true{% else %}false{% endif %}";
 
 // Do automatic removal of new unused dependencies after the upgrade
 // (equivalent to apt-get autoremove)
-{% if security_autoupdate_remove_unused_dependencies is not defined %}//{% endif %}Unattended-Upgrade::Remove-Unused-Dependencies "{% if security_autoupdate_remove_unused_dependencies | default('false') %}true{% else %}false{% endif %}";
+{% if security_autoupdate_remove_unused_dependencies is not defined %}//{% endif %}Unattended-Upgrade::Remove-Unused-Dependencies "{% if security_autoupdate_remove_unused_dependencies | default(false) %}true{% else %}false{% endif %}";
 
 // Automatically reboot *WITHOUT CONFIRMATION*
 //  if the file /var/run/reboot-required is found after the upgrade
-{% if security_autoupdate_reboot is not defined %}//{% endif %}Unattended-Upgrade::Automatic-Reboot "{% if security_autoupdate_reboot | default('false') %}true{% else %}false{% endif %}";
+{% if security_autoupdate_reboot is not defined %}//{% endif %}Unattended-Upgrade::Automatic-Reboot "{% if security_autoupdate_reboot | default(false) %}true{% else %}false{% endif %}";
 
 // If automatic reboot is enabled and needed, reboot at the specific
 // time instead of immediately
@@ -82,15 +82,15 @@ Unattended-Upgrade::DevRelease "{% if security_autoupdate_devrelease | default('
 {% if security_autoupdate_download_limit is not defined %}//{% endif %}Acquire::http::Dl-Limit "{{ security_autoupdate_download_limit | default('70') }}";
 
 // Enable logging to syslog. Default is False
-{% if security_autoupdate_syslog_enable is not defined %}//{% endif %}Unattended-Upgrade::SyslogEnable "{% if security_autoupdate_syslog_enable | default('false') %}true{% else %}false{% endif %}";
+{% if security_autoupdate_syslog_enable is not defined %}//{% endif %}Unattended-Upgrade::SyslogEnable "{% if security_autoupdate_syslog_enable | default(false) %}true{% else %}false{% endif %}";
 
 // Specify syslog facility. Default is daemon
 {% if security_autoupdate_syslog_facility is not defined %}//{% endif %}Unattended-Upgrade::SyslogFacility "{{ security_autoupdate_syslog_facility | default('daemon') }}";
 
 // Download and install upgrades only on AC power
 // (i.e. skip or gracefully stop updates on battery)
-{% if security_autoupdate_on_ac_only is not defined %}//{% endif %}Unattended-Upgrade::OnlyOnACPower "{% if security_autoupdate_on_ac_only | default('true') %}true{% else %}false{% endif %}";
+{% if security_autoupdate_on_ac_only is not defined %}//{% endif %}Unattended-Upgrade::OnlyOnACPower "{% if security_autoupdate_on_ac_only | default(true) %}true{% else %}false{% endif %}";
 
 // Download and install upgrades only on non-metered connection
 // (i.e. skip or gracefully stop updates on a metered connection)
-{% if security_autoupdate_on_non_metered is not defined %}//{% endif %}Unattended-Upgrade::Skip-Updates-On-Metered-Connections "{% if security_autoupdate_on_non_metered | default('true') %}true{% else %}false{% endif %}";
+{% if security_autoupdate_on_non_metered is not defined %}//{% endif %}Unattended-Upgrade::Skip-Updates-On-Metered-Connections "{% if security_autoupdate_on_non_metered | default(true) %}true{% else %}false{% endif %}";
