@@ -12,6 +12,8 @@ env:
     - MOLECULE_DISTRO: ubuntu1604
       MOLECULE_DOCKER_COMMAND: /lib/systemd/systemd
     - MOLECULE_DISTRO: debian8
+    - MOLECULE_DISTRO: debian9
+      MOLECULE_DOCKER_COMMAND: /lib/systemd/systemd
 
 install:
   # Install test dependencies.
