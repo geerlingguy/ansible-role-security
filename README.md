@@ -53,6 +53,14 @@ Whether to install/enable `yum-cron` (RedHat-based systems) or `unattended-upgra
 
 (Debian/Ubuntu only) A listing of packages that should not be automatically updated.
 
+    security_autoupdate_reboot: false
+
+(Debian/Ubuntu only) Whether to reboot when needed during unattended upgrades.
+
+    security_autoupdate_reboot_time: "03:00"
+
+(Debian/Ubuntu only) The time to trigger a reboot, when needed, if `security_autoupdate_reboot` is set to `true`. In 24h "hh:mm" clock format.
+
     security_autoupdate_mail_to: ""
     security_autoupdate_mail_on_error: true
 
