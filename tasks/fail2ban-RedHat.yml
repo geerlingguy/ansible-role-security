@@ -1,3 +1,6 @@
 ---
+- name: Install EPEL for fail2ban installation
+  package: name=epel-release state=present
+
 - name: Install fail2ban.
   package: name=fail2ban state=present enablerepo=epel
