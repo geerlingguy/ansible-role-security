@@ -51,7 +51,7 @@ Whether to install/enable `yum-cron` (RedHat-based systems) or `unattended-upgra
 
     security_autoupdate_blacklist: []
 
-(Debian/Ubuntu only) A listing of packages that should not be automatically updated.
+A listing of packages that should not be automatically updated.
 
     security_autoupdate_reboot: false
 
@@ -64,7 +64,7 @@ Whether to install/enable `yum-cron` (RedHat-based systems) or `unattended-upgra
     security_autoupdate_mail_to: ""
     security_autoupdate_mail_on_error: true
 
-(Debian/Ubuntu only) If `security_autoupdate_mail_to` is set to an non empty value, unattended upgrades will send an e-mail to that address when some error occurs. You may either set this to a full email: `ops@example.com` or to something like `root`, which will use `/etc/aliases` to route the message. If you set `security_autoupdate_mail_on_error` to `false` you'll get an email after every package install.
+(security_auto_update_mail_on_error = Debian/Ubuntu only) If `security_autoupdate_mail_to` is set to an non empty value, unattended upgrades will send an e-mail to that address when some error occurs. You may either set this to a full email: `ops@example.com` or to something like `root`, which will use `/etc/aliases` to route the message. If you set `security_autoupdate_mail_on_error` to `false` you'll get an email after every package install.
 
     security_fail2ban_enabled: true
 
