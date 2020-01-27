@@ -76,7 +76,7 @@ Whether to install/enable `yum-cron` (RedHat-based systems) or `unattended-upgra
 
     security_fail2ban_enabled: true
 
-Wether to install/enable `fail2ban`. You might not want to use fail2ban if you're already using some other service for login and intrusion detection (e.g. [ConfigServer](http://configserver.com/cp/csf.html)).
+Whether to install/enable `fail2ban`. You might not want to use fail2ban if you're already using some other service for login and intrusion detection (e.g. [ConfigServer](http://configserver.com/cp/csf.html)).
 
 ## Dependencies
 
