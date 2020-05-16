@@ -13,6 +13,10 @@
     - ansible_os_family == 'Debian'
     - security_fail2ban_enabled | bool
 
+- include_tasks: fail2ban-configuration.yml
+  when:
+    - security_fail2ban_enabled | bool
+
 - name: Ensure fail2ban is running and enabled on boot.
   service: name=fail2ban state=started enabled=yes
   when: security_fail2ban_enabled | bool
