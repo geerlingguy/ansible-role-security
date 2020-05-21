@@ -57,9 +57,25 @@ A list of users who should be added to the sudoers file so they can run any comm
 
 Whether to install/enable `yum-cron` (RedHat-based systems) or `unattended-upgrades` (Debian-based systems). System restarts will not happen automatically in any case, and automatic upgrades are no excuse for sloppy patch and package management, but automatic updates can be helpful as yet another security measure.
 
-    security_autoupdate_blacklist: []
+    security_autoupdate_origins_pattern: []
+
+(Debian/Ubuntu only) A list of allowed origins, a package will be upgraded only if the values in its metadata match all the supplied keywords in a line. See `unattended-upgrades` manual and template for details.
+
+    security_autoupdate_package_blacklist: []
 
 (Debian/Ubuntu only) A listing of packages that should not be automatically updated.
+
+    security_autoupdate_auto_fix_interrupted: true
+
+(Debian/Ubuntu only) Whether to run `dpkg --force-confold --configure -a` on a unclean `dpkg` exit.
+
+    security_autoupdate_minimal_steps: true
+
+(Debian/Ubuntu only) Whether to split the upgrade into the smallest possible chunks so that they can be interrupted with SIGUSR1. This makes the upgrade a bit slower but it has the benefit that shutdown while a upgrade is running is possible (with a small delay).
+
+    security_autoupdate_install_on_shutdown: false
+
+(Debian/Ubuntu only) Install all unattended-upgrades when the machine is shuting down instead of doing it in the background while the machine is running.
 
     security_autoupdate_reboot: false
 
