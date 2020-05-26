@@ -21,4 +21,7 @@ security_autoupdate_reboot_time: "03:00"
 security_autoupdate_mail_to: ""
 security_autoupdate_mail_on_error: true
 
+# DNF autoupdate configuration
+security_dnf_upgrade_type: "default"
+
 security_fail2ban_enabled: true

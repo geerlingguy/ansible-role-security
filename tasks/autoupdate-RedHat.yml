@@ -32,3 +32,13 @@
   when:
     - security_autoupdate_enabled
     - ansible_distribution_major_version | int in [7, 8]
+
+- name: Configure DNF type of upgrades.
+  lineinfile:
+    dest: '{{ update_conf_path }}'
+    regexp: '^upgrade_type = .+'
+    line: 'upgrade_type = {{ security_dnf_upgrade_type }}'
+  when:
+    - security_autoupdate_enabled
+    - ansible_distribution_major_version | int in [7, 8]
+    
