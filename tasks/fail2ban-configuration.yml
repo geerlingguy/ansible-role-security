@@ -1,8 +1,0 @@
----
-- name: Copy fail2ban custom configuration file into place.
-  template:
-    src: "{{ security_fail2ban_custom_configuration_template }}"
-    dest: /etc/fail2ban/jail.local
-    owner: root
-    group: root
-    mode: 0644
