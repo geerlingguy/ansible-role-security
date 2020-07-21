@@ -1,4 +1,9 @@
 ---
+- name: Ensure SSH daemon is running.
+  service:
+    name: "{{ security_sshd_name }}"
+    state: "{{ security_sshd_state }}"
+
 - name: Update SSH configuration to be more secure.
   lineinfile:
     dest: "{{ security_ssh_config_path }}"
