@@ -1,8 +1,4 @@
 ---
-- name: Ensure sshd service is started
-  systemd:
-    name: sshd
-    state: started
 - name: Update SSH configuration to be more secure.
   lineinfile:
     dest: "{{ security_ssh_config_path }}"
