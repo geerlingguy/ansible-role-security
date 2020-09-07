@@ -13,21 +13,21 @@
     validate: 'sshd -T -f %s'
     mode: 0644
   with_items:
-    - regexp: "^PasswordAuthentication"
+    - regexp: '^(\s+)?([#]+)?(\s+)?PasswordAuthentication'
       line: "PasswordAuthentication {{ security_ssh_password_authentication }}"
-    - regexp: "^PermitRootLogin"
+    - regexp: '^(\s+)?([#]+)?(\s+)?PermitRootLogin'
       line: "PermitRootLogin {{ security_ssh_permit_root_login }}"
-    - regexp: "^Port"
+    - regexp: '^(\s+)?([#]+)?(\s+)?Port'
       line: "Port {{ security_ssh_port }}"
-    - regexp: "^UseDNS"
+    - regexp: '^(\s+)?([#]+)?(\s+)?UseDNS'
       line: "UseDNS {{ security_ssh_usedns }}"
-    - regexp: "^PermitEmptyPasswords"
+    - regexp: '^(\s+)?([#]+)?(\s+)?PermitEmptyPasswords'
       line: "PermitEmptyPasswords {{ security_ssh_permit_empty_password }}"
-    - regexp: "^ChallengeResponseAuthentication"
+    - regexp: '^(\s+)?([#]+)?(\s+)?ChallengeResponseAuthentication'
       line: "ChallengeResponseAuthentication {{ security_ssh_challenge_response_auth }}"
-    - regexp: "^GSSAPIAuthentication"
+    - regexp: '^(\s+)?([#]+)?(\s+)?GSSAPIAuthentication'
       line: "GSSAPIAuthentication {{ security_ssh_gss_api_authentication }}"
-    - regexp: "^X11Forwarding"
+    - regexp: '^(\s+)?([#]+)?(\s+)?X11Forwarding'
       line: "X11Forwarding {{ security_ssh_x11_forwarding }}"
   notify: restart ssh
 
