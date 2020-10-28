@@ -10,7 +10,7 @@
     regexp: "{{ item.regexp }}"
     line: "{{ item.line }}"
     state: present
-    validate: 'sshd -T -f %s'
+    validate: 'sshd -T -C user=root -C host=localhost -C addr=localhost -f %s'
     mode: 0644
   with_items:
     - regexp: "^PasswordAuthentication"
