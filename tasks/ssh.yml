@@ -31,6 +31,13 @@
       line: "X11Forwarding {{ security_ssh_x11_forwarding }}"
   notify: restart ssh
 
+- name: Install sudo package.
+  package:
+    name: sudo
+    state: present
+  when: security_sudoers_passwordless | length > 0 or
+        security_sudoers_passworded | length > 0
+
 - name: Add configured user accounts to passwordless sudoers.
   lineinfile:
     dest: /etc/sudoers
