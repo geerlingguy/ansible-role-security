@@ -1,6 +1,6 @@
 # Ansible Role: Security (Basics)
 
-[![Build Status](https://travis-ci.org/buluma/ansible-role-security.svg?branch=master)](https://travis-ci.org/buluma/ansible-role-security)
+[![CI](https://github.com/geerlingguy/ansible-role-security/workflows/CI/badge.svg?event=push)](https://github.com/geerlingguy/ansible-role-security/actions?query=workflow%3ACI)
 
 **First, a major, MAJOR caveat**: the security of your servers is YOUR responsibility. If you think simply including this role and adding a firewall makes a server secure, then you're mistaken. Read up on Linux, network, and application security, and know that no matter how much you know, you can always make every part of your stack more secure.
 
@@ -14,7 +14,7 @@ There are a few other things you may or may not want to do (which are not includ
 
   - Use logwatch or a centralized logging server to analyze and monitor log files
   - Securely configure user accounts and SSH keys (this role assumes you're not using password authentication or logging in as root)
-  - Have a well-configured firewall (check out the `geerlingguy.firewall` role on Ansible Galaxy for a flexible example). 
+  - Have a well-configured firewall (check out the `geerlingguy.firewall` role on Ansible Galaxy for a flexible example)
 
 Again: Your servers' security is *your* responsibility.
 
@@ -37,8 +37,20 @@ The port through which you'd like SSH to be accessible. The default is port 22, 
     security_ssh_password_authentication: "no"
     security_ssh_permit_root_login: "no"
     security_ssh_usedns: "no"
+    security_ssh_permit_empty_password: "no"
+    security_ssh_challenge_response_auth: "no"
+    security_ssh_gss_api_authentication: "no"
+    security_ssh_x11_forwarding: "no"
 
-Security settings for SSH authentication. It's best to leave these set to `"no"`, but there are times (especially during initial server configuration or when you don't have key-based authentication in place) when one or all may be safely set to `'yes'`.
+Security settings for SSH authentication. It's best to leave these set to `"no"`, but there are times (especially during initial server configuration or when you don't have key-based authentication in place) when one or all may be safely set to `'yes'`. **NOTE: It is _very_ important that you quote the 'yes' or 'no' values. Failure to do so may lock you out of your server.**
+
+    security_sshd_state: started
+
+The state of the SSH daemon. Typically this should remain `started`.
+
+    security_ssh_restart_handler_state: restarted
+
+The state of the `restart ssh` handler. Typically this should remain `restarted`.
 
     security_sudoers_passwordless: []
     security_sudoers_passworded: []
@@ -53,6 +65,14 @@ Whether to install/enable `yum-cron` (RedHat-based systems) or `unattended-upgra
 
 (Debian/Ubuntu only) A listing of packages that should not be automatically updated.
 
+    security_autoupdate_reboot: false
+
+(Debian/Ubuntu only) Whether to reboot when needed during unattended upgrades.
+
+    security_autoupdate_reboot_time: "03:00"
+
+(Debian/Ubuntu only) The time to trigger a reboot, when needed, if `security_autoupdate_reboot` is set to `true`. In 24h "hh:mm" clock format.
+
     security_autoupdate_mail_to: ""
     security_autoupdate_mail_on_error: true
 
@@ -60,7 +80,11 @@ Whether to install/enable `yum-cron` (RedHat-based systems) or `unattended-upgra
 
     security_fail2ban_enabled: true
 
-Wether to install/enable `fail2ban`. You might not want to use fail2ban if you're already using some other service for login and intrusion detection (e.g. [ConfigServer](http://configserver.com/cp/csf.html)).
+Whether to install/enable `fail2ban`. You might not want to use fail2ban if you're already using some other service for login and intrusion detection (e.g. [ConfigServer](http://configserver.com/cp/csf.html)).
+
+    security_fail2ban_custom_configuration_template: "jail.local.j2"
+
+The name of the template file used to generate `fail2ban`'s configuration.
 
 ## Dependencies
 
@@ -72,7 +96,7 @@ None.
       vars_files:
         - vars/main.yml
       roles:
-        - buluma.security
+        - geerlingguy.security
 
 *Inside `vars/main.yml`*:
 

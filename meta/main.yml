@@ -2,29 +2,31 @@
 dependencies: []
 
 galaxy_info:
-  author: buluma
+  role_name: security
+  author: geerlingguy
   description: Security software installation and configuration.
-  company: "ShadowNet"
+  company: "Midwestern Mac, LLC"
   license: "license (BSD, MIT)"
-  min_ansible_version: 2.0
+  min_ansible_version: 2.4
   platforms:
     - name: EL
       versions:
-      - all
+        - all
     - name: Fedora
       versions:
-      - all
+        - all
     - name: Debian
       versions:
-      - all
+        - all
     - name: Ubuntu
       versions:
-      - all
+        - all
   galaxy_tags:
     - system
     - security
     - fail2ban
-    - automatic-updates
+    - automatic
+    - updates
     - yum
     - apt
     - dnf
