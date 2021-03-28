@@ -1,0 +1,4 @@
+*.retry
+*/__pycache__
+*.pyc
+.cache
