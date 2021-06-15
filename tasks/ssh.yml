@@ -31,6 +31,30 @@
       line: "X11Forwarding {{ security_ssh_x11_forwarding }}"
   notify: restart ssh
 
+- name: Add configured users allowed to connect over ssh
+  lineinfile:
+    dest: "{{ security_ssh_config_path }}"
+    regexp: '^AllowUsers'
+    line: "AllowUsers {{ security_ssh_allowed_users | join(' ') }}"
+    state: present
+    create: true
+    validate: 'sshd -T -f %s'
+    mode: 0644
+  when: security_ssh_allowed_users | length > 0
+  notify: restart ssh
+
+- name: Add configured groups allowed to connect over ssh
+  lineinfile:
+    dest: "{{ security_ssh_config_path }}"
+    regexp: '^AllowGroups'
+    line: "AllowGroups {{ security_ssh_allowed_groups | join(' ') }}"
+    state: present
+    create: true
+    validate: 'sshd -T -f %s'
+    mode: 0644
+  when: security_ssh_allowed_groups | length > 0
+  notify: restart ssh
+
 - name: Add configured user accounts to passwordless sudoers.
   lineinfile:
     dest: /etc/sudoers
