@@ -1,4 +1,4 @@
-APT::Periodic::Update-Package-Lists "1";
-APT::Periodic::Download-Upgradeable-Packages "1";
-APT::Periodic::AutocleanInterval "7";
-APT::Periodic::Unattended-Upgrade "1";
+APT::Periodic::Update-Package-Lists "{{ security_autoupdate_periodic_update_package_list }}";
+APT::Periodic::Download-Upgradeable-Packages "{{ security_autoupdate_periodic_download_upgradable_packages }}";
+APT::Periodic::AutocleanInterval "{{ security_autoupdate_periodic_autocleaninterval }}";
+APT::Periodic::Unattended-Upgrade "{{ security_autoupdate_periodic_unattended_upgrade }}";
