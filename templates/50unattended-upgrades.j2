@@ -10,13 +10,17 @@ Unattended-Upgrade::MailOnlyOnError "true";
 {% if security_autoupdate_enable_allowed_origins %}
 
 Unattended-Upgrade::Allowed-Origins {
-	{{ security_autoupdate_allowed_origins }}
+{% for package in security_autoupdate_allowed_origins %}
+	"{{package}}";
+{% endfor %}
 };
 {% endif %}
 {% if security_autoupdate_enable_origins_pattern %}
 
 Unattended-Upgrade::Origins-Pattern {
-	{{ security_autoupdate_origins_pattern }}
+{% for package in security_autoupdate_origins_pattern %}
+	"{{package}}";
+{% endfor %}
 };
 {% endif %}
 

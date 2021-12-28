@@ -73,6 +73,38 @@ Whether to install/enable `yum-cron` (RedHat-based systems) or `unattended-upgra
 
 (Debian/Ubuntu only) The time to trigger a reboot, when needed, if `security_autoupdate_reboot` is set to `true`. In 24h "hh:mm" clock format.
 
+    security_autoupdate_periodic_update_package_list: 1
+
+(Debian/Ubuntu only) Whether to update package list during unattended upgrades.
+
+    security_autoupdate_periodic_download_upgradable_packages: 1
+
+(Debian/Ubuntu only) Whether to download upgradable packages during unattended upgrades.
+
+    security_autoupdate_periodic_autocleaninternal: 7
+
+(Debian/Ubuntu only) Auto clean internal (in days) for unattended upgrades.
+
+    security_autoupdate_periodic_unattended_upgrade: 1
+
+(Debian/Ubuntu only) Enable unattended upgrade.
+
+    security_autoupdate_enable_allowed_origins: true
+
+(Debian/Ubuntu only) Enable allowed origins in unattended upgrades (in case you want to update/upgrade all packages, set to false).
+
+    security_autoupdate_allowed_origins: []
+
+(Debian/Ubuntu only) A listing of origins that should be allowed.
+
+    security_autoupdate_enable_origins_pattern: false
+
+(Debian/Ubuntu only) Enable origins pattern in unattended upgrades (in case you want to update/upgrade all packages, set to true).
+
+    security_autoupdate_origins_pattern: []
+
+(Debian/Ubuntu only) A listing of origins pattern that should be allowed.
+
     security_autoupdate_mail_to: ""
     security_autoupdate_mail_on_error: true
 

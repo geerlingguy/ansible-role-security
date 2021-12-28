@@ -28,13 +28,13 @@ security_autoupdate_periodic_autocleaninterval: 7
 security_autoupdate_periodic_unattended_upgrade: 1
 
 security_autoupdate_enable_allowed_origins: true
-security_autoupdate_allowed_origins: |-
-  "${distro_id} ${distro_codename}-security";
-  // "${distro_id} ${distro_codename}-updates";
+security_autoupdate_allowed_origins:
+  - "${distro_id} ${distro_codename}-security"
+# - "${distro_id} ${distro_codename}-updates";
 
 security_autoupdate_enable_origins_pattern: false
-security_autoupdate_origins_pattern: |-
-  "origin=*";
+security_autoupdate_origins_pattern:
+  - "origin=*"
 
 security_fail2ban_enabled: true
 security_fail2ban_custom_configuration_template: "jail.local.j2"
