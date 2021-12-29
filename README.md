@@ -44,6 +44,19 @@ The port through which you'd like SSH to be accessible. The default is port 22, 
 
 Security settings for SSH authentication. It's best to leave these set to `"no"`, but there are times (especially during initial server configuration or when you don't have key-based authentication in place) when one or all may be safely set to `'yes'`. **NOTE: It is _very_ important that you quote the 'yes' or 'no' values. Failure to do so may lock you out of your server.**
 
+    security_ssh_allowed_users: []
+    # - alice
+    # - bob
+    # - charlie
+
+A list of users allowed to connect to the host over SSH.  If no user is defined in the list, the task will be skipped.
+
+    security_ssh_allowed_groups: []
+    # - admins
+    # - devs
+
+A list of groups allowed to connect to the host over SSH.  If no group is defined in the list, the task will be skipped.
+
     security_sshd_state: started
 
 The state of the SSH daemon. Typically this should remain `started`.
