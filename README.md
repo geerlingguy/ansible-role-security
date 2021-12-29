@@ -79,7 +79,7 @@ Whether to configure security only related package updates or all updates.
 
     security_autoupdate_blacklist: []
 
-(Debian/Ubuntu only) A listing of packages that should not be automatically updated.
+A listing of packages that should not be automatically updated.
 
     security_autoupdate_reboot: false
 
