@@ -44,3 +44,14 @@
     - security_autoupdate_enabled
     - security_autoupdate_secpkgs_only
     - ansible_distribution_major_version | int in [7, 8]
+
+- name: Set automatic update blacklist.
+  lineinfile:
+    dest: '{{ update_conf_path }}'
+    insertafter: '[base]'
+    line: 'exclude = {{ security_autoupdate_blacklist | join(" ") }}'
+    mode: 0644
+  when:
+    - security_autoupdate_enabled
+    - security_autoupdate_blacklist
+    - ansible_distribution_major_version | int in [7, 8]
