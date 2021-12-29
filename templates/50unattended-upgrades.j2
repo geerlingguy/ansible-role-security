@@ -10,22 +10,22 @@ Unattended-Upgrade::MailOnlyOnError "true";
 {% if security_autoupdate_enable_allowed_origins %}
 
 Unattended-Upgrade::Allowed-Origins {
-{% for package in security_autoupdate_allowed_origins %}
-	"{{package}}";
+{% for origins in security_autoupdate_allowed_origins %}
+	"{{ origins }}";
 {% endfor %}
 };
 {% endif %}
 {% if security_autoupdate_enable_origins_pattern %}
 
 Unattended-Upgrade::Origins-Pattern {
-{% for package in security_autoupdate_origins_pattern %}
-	"{{package}}";
+{% for origins in security_autoupdate_origins_pattern %}
+	"{{ origins }}";
 {% endfor %}
 };
 {% endif %}
 
 Unattended-Upgrade::Package-Blacklist {
 {% for package in security_autoupdate_blacklist %}
-	"{{package}}";
+	"{{ package }}";
 {% endfor %}
 }
