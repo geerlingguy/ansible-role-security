@@ -9,6 +9,10 @@
 # SSH
 - include_tasks: ssh.yml
 
+# SELinux SSH Rules (RedHat)
+- include_tasks: sepolicy-RedHat.yml
+  when: ansible_os_family == 'RedHat'
+
 # Autoupdate
 - include_tasks: autoupdate-RedHat.yml
   when:

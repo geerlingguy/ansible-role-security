@@ -1,0 +1,9 @@
+---
+- name: Check if SSH port is already allowed in SELinux (RedHat)
+  shell: semanage port -lC | grep {{ security_ssh_port }}            
+  register: allowed
+  ignore_errors: yes
+
+- name: Allow SSH to run on {{ security_ssh_port }} (RedHat)
+  command: semanage port -a -t ssh_port_t -p tcp {{ security_ssh_port }}
+  when: allowed.rc != 0
