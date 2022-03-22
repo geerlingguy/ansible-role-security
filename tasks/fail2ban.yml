@@ -12,6 +12,12 @@
     state: present
   when: ansible_os_family == 'Debian'
 
+- name: Install fail2ban (Archlinux).
+  package:
+    name: fail2ban
+    state: present
+  when: ansible_os_family == 'Archlinux'
+
 - name: Copy fail2ban custom configuration file into place.
   template:
     src: "{{ security_fail2ban_custom_configuration_template }}"
