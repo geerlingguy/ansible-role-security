@@ -1,5 +1,6 @@
 ---
 security_ssh_port: 22
+security_ssh_protocol: 2
 security_ssh_password_authentication: "no"
 security_ssh_permit_root_login: "no"
 security_ssh_usedns: "no"
