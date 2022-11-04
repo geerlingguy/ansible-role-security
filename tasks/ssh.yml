@@ -57,7 +57,7 @@
 
 - name: Add configured user accounts to passwordless sudoers.
   lineinfile:
-    dest: /etc/sudoers
+    dest: /etc/sudoers.d/{{ item }}
     regexp: '^{{ item }}'
     line: '{{ item }} ALL=(ALL) NOPASSWD: ALL'
     state: present
@@ -68,7 +68,7 @@
 
 - name: Add configured user accounts to passworded sudoers.
   lineinfile:
-    dest: /etc/sudoers
+    dest: /etc/sudoers.d/{{ item }}
     regexp: '^{{ item }}'
     line: '{{ item }} ALL=(ALL) ALL'
     state: present
