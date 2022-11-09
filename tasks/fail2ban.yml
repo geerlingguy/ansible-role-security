@@ -6,11 +6,11 @@
     enablerepo: epel
   when: ansible_os_family == 'RedHat'
 
-- name: Install fail2ban (Debian).
+- name: Install fail2ban.
   package:
     name: fail2ban
     state: present
-  when: ansible_os_family == 'Debian'
+  when: ansible_os_family != 'RedHat'
 
 - name: Copy fail2ban custom configuration file into place.
   template:

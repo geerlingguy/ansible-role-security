@@ -21,6 +21,9 @@ galaxy_info:
     - name: Ubuntu
       versions:
         - all
+    - name: ArchLinux
+      versions:
+        - all
   galaxy_tags:
     - system
     - security
