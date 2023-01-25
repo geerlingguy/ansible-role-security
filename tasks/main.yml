@@ -9,6 +9,9 @@
 # SSH
 - include_tasks: ssh.yml
 
+# Sudoers
+- include_tasks: sudoers.yml
+
 # Autoupdate
 - include_tasks: autoupdate-RedHat.yml
   when:
