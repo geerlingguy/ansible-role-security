@@ -30,7 +30,7 @@
     - regexp: "^X11Forwarding"
       line: "X11Forwarding {{ security_ssh_x11_forwarding }}"
     - regexp: "^AuthenticationMethods"
-      line: "AuthenticationMethods {{ '"' + security_ssh_authentication_methods + '"'}}"
+      line: "AuthenticationMethods {{ security_ssh_authentication_methods | quote }}"
       
   notify: restart ssh
 
