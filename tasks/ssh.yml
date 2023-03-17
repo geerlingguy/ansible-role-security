@@ -55,6 +55,36 @@
   when: security_ssh_allowed_groups | length > 0
   notify: restart ssh
 
+- name: Add configured users allowed to authenticate with passwords
+  blockinfile:
+    dest: "{{ security_ssh_config_path }}"
+    block: |
+      Match User {{ security_ssh_password_authentication_allowed_users | join(',') }}
+        PasswordAuthentication yes
+      Match all
+    marker_begin: geerlingguy.security security_ssh_password_authentication_allowed_users
+    marker_end: geerlingguy.security security_ssh_password_authentication_allowed_users
+    state: present
+    create: true
+    validate: 'sshd -T -f %s'
+    mode: 0644
+  when: security_ssh_password_authentication_allowed_users | length > 0
+
+- name: Add configured groups allowed to authenticate with passwords
+  blockinfile:
+    dest: "{{ security_ssh_config_path }}"
+    block: |
+      Match Group {{ security_ssh_password_authentication_allowed_groups | join(',') }}
+        PasswordAuthentication yes
+      Match all
+    marker_begin: geerlingguy.security security_ssh_password_authentication_allowed_groups
+    marker_end: geerlingguy.security security_ssh_password_authentication_allowed_groups
+    state: present
+    create: true
+    validate: 'sshd -T -f %s'
+    mode: 0644
+  when: security_ssh_password_authentication_allowed_groups | length > 0
+
 - name: Add configured user accounts to passwordless sudoers.
   lineinfile:
     dest: /etc/sudoers

@@ -57,6 +57,19 @@ A list of users allowed to connect to the host over SSH.  If no user is defined 
 
 A list of groups allowed to connect to the host over SSH.  If no group is defined in the list, the task will be skipped.
 
+    security_ssh_password_authentication_allowed_users: []
+    # - alice
+    # - bob
+    # - charlie
+
+A list of users allowed to authenticate with passwords, even if `security_ssh_password_authentication` is globally set to `"no"`.  If no user is defined in the list, the task will be skipped.
+
+    security_ssh_password_authentication_allowed_groups: []
+    # - admins
+    # - dev
+
+A list of groups allowed to authenticate with passwords, even if `security_ssh_password_authentication` is globally set to `"no"`.  If no group is defined in the list, the task will be skipped.
+
     security_sshd_state: started
 
 The state of the SSH daemon. Typically this should remain `started`.
