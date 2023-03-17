@@ -69,6 +69,7 @@
     validate: 'sshd -T -f %s'
     mode: 0644
   when: security_ssh_password_authentication_allowed_users | length > 0
+  notify: restart ssh
 
 - name: Add configured groups allowed to authenticate with passwords
   blockinfile:
@@ -84,6 +85,7 @@
     validate: 'sshd -T -f %s'
     mode: 0644
   when: security_ssh_password_authentication_allowed_groups | length > 0
+  notify: restart ssh
 
 - name: Add configured user accounts to passwordless sudoers.
   lineinfile:
