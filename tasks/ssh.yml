@@ -62,8 +62,8 @@
       Match User {{ security_ssh_password_authentication_allowed_users | join(',') }}
         PasswordAuthentication yes
       Match all
-    marker_begin: geerlingguy.security security_ssh_password_authentication_allowed_users
-    marker_end: geerlingguy.security security_ssh_password_authentication_allowed_users
+    marker_begin: BEGIN geerlingguy.security security_ssh_password_authentication_allowed_users
+    marker_end: END geerlingguy.security security_ssh_password_authentication_allowed_users
     state: present
     create: true
     validate: 'sshd -T -f %s'
@@ -78,8 +78,8 @@
       Match Group {{ security_ssh_password_authentication_allowed_groups | join(',') }}
         PasswordAuthentication yes
       Match all
-    marker_begin: geerlingguy.security security_ssh_password_authentication_allowed_groups
-    marker_end: geerlingguy.security security_ssh_password_authentication_allowed_groups
+    marker_begin: BEGIN geerlingguy.security security_ssh_password_authentication_allowed_groups
+    marker_end: END geerlingguy.security security_ssh_password_authentication_allowed_groups
     state: present
     create: true
     validate: 'sshd -T -f %s'
