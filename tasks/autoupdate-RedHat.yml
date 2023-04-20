@@ -1,5 +1,5 @@
 ---
-- name: Set correct automatic update utility vars (RHEL 8).
+- name: Set correct automatic update utility vars (RHEL >= 8).
   set_fact:
     update_utility: dnf-automatic
     update_service: dnf-automatic-install.timer
