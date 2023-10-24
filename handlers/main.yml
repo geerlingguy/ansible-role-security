@@ -3,3 +3,8 @@
   service:
     name: "{{ security_sshd_name }}"
     state: "{{ security_ssh_restart_handler_state }}"
+
+- name: reload fail2ban
+  service:
+    name: fail2ban
+    state: reloaded
