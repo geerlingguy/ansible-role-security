@@ -20,7 +20,7 @@
     group: root
     mode: 0644
   notify:
-   - reload fail2ban
+    - reload fail2ban
 
 - name: Ensure fail2ban is running and enabled on boot.
   service:
