@@ -1,3 +1,9 @@
+{% if ansible_distribution_major_version | int >= 12 %}
+[DEFAULT]
+backend = systemd
+logtarget = SYSTEMD-JOURNAL
+
+{% endif %}
 [sshd]
 enabled = true
 port    = {{ security_ssh_port }}
