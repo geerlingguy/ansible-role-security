@@ -8,7 +8,7 @@
 
 # SSH
 - include_tasks: ssh.yml
-
+  when: security_ssh_enabled | bool
 # Autoupdate
 - include_tasks: autoupdate-RedHat.yml
   when:
