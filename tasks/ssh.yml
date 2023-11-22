@@ -31,6 +31,15 @@
       line: "X11Forwarding {{ security_ssh_x11_forwarding }}"
   notify: restart ssh
 
+- name: Ensure cloud-init conf does not still allow passwords anyway.
+  lineinfile:
+    dest: "{{ security_ssh_cloudinit_config_path }}"
+    regexp: "^PasswordAuthentication"
+    state: absent
+    validate: 'sshd -T -f %s'
+    mode: 0600
+  notify: restart ssh
+
 - name: Add configured users allowed to connect over ssh
   lineinfile:
     dest: "{{ security_ssh_config_path }}"

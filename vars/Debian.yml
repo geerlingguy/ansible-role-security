@@ -1,3 +1,4 @@
 ---
 security_ssh_config_path: /etc/ssh/sshd_config
+security_ssh_cloudinit_config_path: /etc/ssh/sshd_config.d/50-cloud-init.conf
 security_sshd_name: ssh
