@@ -11,6 +11,7 @@ security_sshd_state: started
 security_ssh_restart_handler_state: restarted
 security_ssh_allowed_users: []
 security_ssh_allowed_groups: []
+security_ssh_config_mode: 0644
 
 security_sudoers_passwordless: []
 security_sudoers_passworded: []
