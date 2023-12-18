@@ -12,13 +12,26 @@
     state: present
   when: ansible_os_family == 'Debian'
 
-- name: Copy fail2ban custom configuration file into place.
+- name: Copy jail custom configuration file into place.
   template:
     src: "{{ security_fail2ban_custom_configuration_template }}"
     dest: /etc/fail2ban/jail.local
     owner: root
     group: root
     mode: 0644
+  notify:
+   - reload fail2ban
+
+- name: Copy fail2ban custom configuration file into place.
+  template:
+    src: fail2ban.local.j2
+    dest: /etc/fail2ban/fail2ban.local
+    owner: root
+    group: root
+    mode: 0644
+  when:
+    - ansible_os_family == 'Debian'
+    - ansible_distribution_major_version | int >= 12
   notify:
    - reload fail2ban
 
