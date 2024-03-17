@@ -39,7 +39,7 @@
     state: present
     create: true
     validate: 'sshd -T -f %s'
-    mode: 0644
+    mode: '{{ security_ssh_config_mode }}'
   when: security_ssh_allowed_users | length > 0
   notify: restart ssh
 
