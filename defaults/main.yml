@@ -17,6 +17,7 @@ security_sudoers_passworded: []
 
 security_autoupdate_enabled: true
 security_autoupdate_blacklist: []
+security_autoupdate_additional_origins: []
 
 # Autoupdate mail settings used on Debian/Ubuntu only.
 security_autoupdate_reboot: "false"
