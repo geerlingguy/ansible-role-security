@@ -30,6 +30,9 @@ No special requirements for Debian/Ubuntu systems.
 
 Available variables are listed below, along with default values (see `defaults/main.yml`):
 
+    security_ssh_enabled: true 
+This setting determines whether to enable or disable SSH hardening. When set to true, SSH hardening measures are applied, which include disabling root login, disabling password authentication, and more. These measures are designed to enhance the security of your SSH server. However, they should not be used as a substitute for a comprehensive security strategy.
+
     security_ssh_port: 22
 
 The port through which you'd like SSH to be accessible. The default is port 22, but if you're operating a server on the open internet, and have no firewall blocking access to port 22, you'll quickly find that thousands of login attempts per day are not uncommon. You can change the port to a nonstandard port (e.g. 2849) if you want to avoid these thousands of automated penetration attempts.
