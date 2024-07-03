@@ -9,8 +9,11 @@ Unattended-Upgrade::MailOnlyOnError "true";
 {% endif %}
 
 Unattended-Upgrade::Allowed-Origins {
+{% if ansible_distribution == 'Debian' %}
+        "origin=Debian,codename=${distro_codename}-security,label=Debian-Security"
+{% else %}
         "${distro_id} ${distro_codename}-security";
-//      "${distro_id} ${distro_codename}-updates";
+{% endif %}
 {% for origin in security_autoupdate_additional_origins %}
         "{{ origin }}";
 {% endfor %}

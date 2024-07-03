@@ -82,7 +82,7 @@ Whether to install/enable `yum-cron` (RedHat-based systems) or `unattended-upgra
     # - "${distro_id}ESM:${distro_codename}-infra-security"
     # - "Docker:${distro_codename}"
 
-(Debian/Ubuntu only) A listing of origins to reference.
+(Debian/Ubuntu only) A listing of origins to reference. Debian's "Debian-Security" and Ubuntu's "${distro_codename}-security" origins are enabled by default.
 
     security_autoupdate_reboot: false
 
