@@ -6,11 +6,11 @@
 
 - name: Copy unattended-upgrades configuration files in place.
   template:
-    src: "{{ item }}.j2"
-    dest: "/etc/apt/apt.conf.d/{{ item }}"
+    src: "{{ item.split('/') | last }}"
+    dest: "/etc/apt/apt.conf.d/{{ item.split('/') | last | split('.') | first }}"
     owner: root
     group: root
     mode: 0644
   with_items:
-    - 10periodic
-    - 50unattended-upgrades
+    - "{{ security_apt_periodic_template }}"
+    - "{{ secsecurity_unattenden-upgrade_template }}"

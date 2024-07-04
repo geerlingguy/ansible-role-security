@@ -27,3 +27,5 @@ security_autoupdate_mail_on_error: true
 
 security_fail2ban_enabled: true
 security_fail2ban_custom_configuration_template: "jail.local.j2"
+security_apt_periodic_template: "10periodic.j2"
+security_unattenden_upgrade_template: "50unattended-upgrades.j2"
