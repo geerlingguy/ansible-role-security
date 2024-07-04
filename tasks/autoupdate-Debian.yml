@@ -13,4 +13,4 @@
     mode: 0644
   with_items:
     - "{{ security_apt_periodic_template }}"
-    - "{{ secsecurity_unattenden-upgrade_template }}"
+    - "{{ security_unattenden_upgrade_template }}"
