@@ -6,11 +6,11 @@
 
 - name: Copy unattended-upgrades configuration files in place.
   template:
-    src: "{{ item.split('/') | last }}"
-    dest: "/etc/apt/apt.conf.d/{{ item.split('/') | last | split('.') | first }}"
+    src: "{{ item | split('/') | last }}"
+    dest: "/etc/apt/apt.conf.d/{{ item | split('/') | last | split('.') | first }}"
     owner: root
     group: root
     mode: 0644
   with_items:
     - "{{ security_apt_periodic_template }}"
-    - "{{ security_unattenden_upgrade_template }}"
+    - "{{ security_unattended_upgrade_template }}"
