@@ -12,6 +12,14 @@
     state: present
   when: ansible_os_family == 'Debian'
 
+- name: Install python3-systemd (Debian)
+  package:
+    name: python3-systemd
+    state: present
+  when:
+    - ansible_os_family == 'Debian'
+    - ansible_distribution_major_version | int >= 12
+
 - name: Copy jail custom configuration file into place.
   template:
     src: "{{ security_fail2ban_custom_configuration_template }}"
