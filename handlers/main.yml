@@ -1,4 +1,8 @@
 ---
+- name: reload systemd
+  systemd_service:
+    daemon_reload: true
+
 - name: restart ssh
   service:
     name: "{{ security_sshd_name }}"
