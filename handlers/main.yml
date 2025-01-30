@@ -1,4 +1,6 @@
 ---
+- name: systemd reload
+  ansible.builtin.command: systemctl daemon-reload
 - name: restart ssh
   service:
     name: "{{ security_sshd_name }}"
