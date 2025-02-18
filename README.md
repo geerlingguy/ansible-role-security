@@ -79,10 +79,9 @@ Whether to install/enable `yum-cron` (RedHat-based systems) or `unattended-upgra
 (Debian/Ubuntu only) A listing of packages that should not be automatically updated.
 
     security_autoupdate_additional_origins: []
-    # - "${distro_id}ESM:${distro_codename}-infra-security"
-    # - "Docker:${distro_codename}"
+    # - "origin=Docker,archive=${distro_codename}"
 
-(Debian/Ubuntu only) A listing of origins to reference. Debian's "Debian-Security" and Ubuntu's "${distro_codename}-security" origins are enabled by default.
+(Debian/Ubuntu only) A listing of additional origins to automatically update.
 
     security_autoupdate_reboot: false
 
