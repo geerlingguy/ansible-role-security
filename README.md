@@ -41,6 +41,8 @@ The port through which you'd like SSH to be accessible. The default is port 22, 
     security_ssh_challenge_response_auth: "no"
     security_ssh_gss_api_authentication: "no"
     security_ssh_x11_forwarding: "no"
+    security_ssh_allow_tcp_forwarding: "no"
+    security_ssh_gateway_ports: "no"
 
 Security settings for SSH authentication. It's best to leave these set to `"no"`, but there are times (especially during initial server configuration or when you don't have key-based authentication in place) when one or all may be safely set to `'yes'`. **NOTE: It is _very_ important that you quote the 'yes' or 'no' values. Failure to do so may lock you out of your server.**
 

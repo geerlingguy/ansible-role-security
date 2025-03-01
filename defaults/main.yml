@@ -11,6 +11,8 @@ security_sshd_state: started
 security_ssh_restart_handler_state: restarted
 security_ssh_allowed_users: []
 security_ssh_allowed_groups: []
+security_ssh_allow_tcp_forwarding: "no"
+security_ssh_gateway_ports: "no"
 
 security_sudoers_passwordless: []
 security_sudoers_passworded: []

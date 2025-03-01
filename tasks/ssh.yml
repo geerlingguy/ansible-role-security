@@ -29,6 +29,10 @@
       line: "GSSAPIAuthentication {{ security_ssh_gss_api_authentication }}"
     - regexp: "^X11Forwarding"
       line: "X11Forwarding {{ security_ssh_x11_forwarding }}"
+    - regexp: "^AllowTcpForwarding"
+      line: "AllowTcpForwarding {{ security_ssh_allow_tcp_forwarding }}"
+    - regexp: "^GatewayPorts"
+      line: "GatewayPorts {{ security_ssh_gateway_ports }}"
   notify: restart ssh
 
 - name: Add configured users allowed to connect over ssh
