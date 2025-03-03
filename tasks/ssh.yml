@@ -29,7 +29,9 @@
       line: "GSSAPIAuthentication {{ security_ssh_gss_api_authentication }}"
     - regexp: "^X11Forwarding"
       line: "X11Forwarding {{ security_ssh_x11_forwarding }}"
-  notify: restart ssh
+  notify:
+    - reload systemd
+    - restart ssh
 
 - name: Add configured users allowed to connect over ssh
   lineinfile:
