@@ -1,6 +1,6 @@
 ---
 - name: reload systemd
-  systemd_service:
+  ansible.builtin.systemd:
     daemon_reload: true
 
 - name: restart ssh
