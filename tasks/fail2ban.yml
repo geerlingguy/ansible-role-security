@@ -14,7 +14,7 @@
 
 - name: Copy jail custom configuration file into place.
   template:
-    src: "{{ security_fail2ban_custom_configuration_template }}"
+    src: "{{ security_fail2ban_custom_jail_template }}"
     dest: /etc/fail2ban/jail.local
     owner: root
     group: root
@@ -25,6 +25,7 @@
 - name: Copy fail2ban custom configuration file into place.
   template:
     src: fail2ban.local.j2
+    src: "{{ security_fail2ban_custom_configuration_template }}"
     dest: /etc/fail2ban/fail2ban.local
     owner: root
     group: root
