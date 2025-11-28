@@ -4,13 +4,13 @@
     name: fail2ban
     state: present
     enablerepo: epel
-  when: ansible_os_family == 'RedHat'
+  when: ansible_facts.os_family == 'RedHat'
 
 - name: Install fail2ban (Debian).
   package:
     name: fail2ban
     state: present
-  when: ansible_os_family == 'Debian'
+  when: ansible_facts.os_family == 'Debian'
 
 - name: Copy jail custom configuration file into place.
   template:
@@ -30,8 +30,8 @@
     group: root
     mode: 0644
   when:
-    - ansible_os_family == 'Debian'
-    - ansible_distribution_major_version | int >= 12
+    - ansible_facts.os_family == 'Debian'
+    - ansible_facts.distribution_major_version | int >= 12
   notify:
     - reload fail2ban
 
