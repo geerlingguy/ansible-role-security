@@ -108,11 +108,10 @@ The name of the template file used to generate `fail2ban`'s configuration.
 
 The name of the template file used to generate `fail2ban`'s jail file.
 
-    security_fail2ban_custom_configuration_template: "DEPRECATED"
+    security_fail2ban_custom_configuration_template: "jail.local.j2"
 
-The name of the template file used to generate `fail2ban`'s configuration.
-This variable is deprecated and should no longer be used.
-Instead, use `security_fail2ban_configuration_template` to specify a custom configuration template.
+The name of the template file previously used to generate `fail2ban`'s jail configuration. This variable is deprecated and should no longer be used.
+Instead, use `security_fail2ban_jail_template` to specify a custom jail configuration template.
 Backwards compatibility is maintained for `security_fail2ban_custom_configuration_template`, but it will be removed in a future release.
 
 ## Dependencies
