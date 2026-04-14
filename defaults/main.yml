@@ -29,5 +29,5 @@ security_fail2ban_enabled: true
 security_fail2ban_jail_template: "jail.local.j2"
 security_fail2ban_configuration_template: "fail2ban.local.j2"
 
-# Deprecated variable, please dont't use it anymore:
+# Deprecated variable, please don't use it anymore:
 # security_fail2ban_custom_configuration_template: "jail.local.j2"
