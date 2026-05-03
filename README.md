@@ -6,17 +6,17 @@
 
 That being said, this role performs some basic security configuration on RedHat and Debian-based linux systems. It attempts to:
 
-  - Install software to monitor bad SSH access (fail2ban)
-  - Configure SSH to be more secure (disabling root login, requiring key-based authentication, and allowing a custom SSH port to be set)
-  - Set up automatic updates (if configured to do so)
+- Install software to monitor bad SSH access (fail2ban)
+- Configure SSH to be more secure (disabling root login, requiring key-based authentication, and allowing a custom SSH port to be set)
+- Set up automatic updates (if configured to do so)
 
 There are a few other things you may or may not want to do (which are not included in this role) to make sure your servers are more secure, like:
 
-  - Use logwatch or a centralized logging server to analyze and monitor log files
-  - Securely configure user accounts and SSH keys (this role assumes you're not using password authentication or logging in as root)
-  - Have a well-configured firewall (check out the `geerlingguy.firewall` role on Ansible Galaxy for a flexible example)
+- Use logwatch or a centralized logging server to analyze and monitor log files
+- Securely configure user accounts and SSH keys (this role assumes you're not using password authentication or logging in as root)
+- Have a well-configured firewall (check out the `geerlingguy.firewall` role on Ansible Galaxy for a flexible example)
 
-Again: Your servers' security is *your* responsibility.
+Again: Your servers' security is _your_ responsibility.
 
 ## Requirements
 
@@ -49,13 +49,13 @@ Security settings for SSH authentication. It's best to leave these set to `"no"`
     # - bob
     # - charlie
 
-A list of users allowed to connect to the host over SSH.  If no user is defined in the list, the task will be skipped.
+A list of users allowed to connect to the host over SSH. If no user is defined in the list, the task will be skipped.
 
     security_ssh_allowed_groups: []
     # - admins
     # - devs
 
-A list of groups allowed to connect to the host over SSH.  If no group is defined in the list, the task will be skipped.
+A list of groups allowed to connect to the host over SSH. If no group is defined in the list, the task will be skipped.
 
     security_sshd_state: started
 
@@ -100,9 +100,19 @@ Whether to install/enable `yum-cron` (RedHat-based systems) or `unattended-upgra
 
 Whether to install/enable `fail2ban`. You might not want to use fail2ban if you're already using some other service for login and intrusion detection (e.g. [ConfigServer](http://configserver.com/cp/csf.html)).
 
-    security_fail2ban_custom_configuration_template: "jail.local.j2"
+    security_fail2ban_configuration_template: "fail2ban.local.j2"
 
 The name of the template file used to generate `fail2ban`'s configuration.
+
+    security_fail2ban_jail_template: "jail.local.j2"
+
+The name of the template file used to generate `fail2ban`'s jail file.
+
+    security_fail2ban_custom_configuration_template: "jail.local.j2"
+
+The name of the template file previously used to generate `fail2ban`'s jail configuration. This variable is deprecated and should no longer be used.
+Instead, use `security_fail2ban_jail_template` to specify a custom jail configuration template.
+Backwards compatibility is maintained for `security_fail2ban_custom_configuration_template`, but it will be removed in a future release.
 
 ## Dependencies
 
@@ -116,7 +126,7 @@ None.
       roles:
         - geerlingguy.security
 
-*Inside `vars/main.yml`*:
+_Inside `vars/main.yml`_:
 
     security_sudoers_passworded:
       - johndoe
