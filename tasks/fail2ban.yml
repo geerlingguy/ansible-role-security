@@ -12,9 +12,28 @@
     state: present
   when: ansible_facts.os_family == 'Debian'
 
-- name: Copy jail custom configuration file into place.
+- name: Assert for deprecated variable
+  assert:
+    quiet: true
+    that:
+      - security_fail2ban_custom_configuration_template is not defined
+    fail_msg: |
+      [DEPRECATION WARNING]: security_fail2ban_custom_configuration_template is deprecated
+      Origin: {{ role_path }}
+
+      Use `security_fail2ban_jail_template` instead.
+  ignore_errors: true
+  register: deprecated_variable
+
+- name: Set value of deprecated_variable into correct variable
+  set_fact:
+    security_fail2ban_jail_template: "{{ security_fail2ban_custom_configuration_template }}"
+  when:
+    - deprecated_variable.failed is true
+
+- name: Copy fail2ban jail file into place.
   template:
-    src: "{{ security_fail2ban_custom_configuration_template }}"
+    src: "{{ security_fail2ban_jail_template }}"
     dest: /etc/fail2ban/jail.local
     owner: root
     group: root
@@ -24,7 +43,7 @@
 
 - name: Copy fail2ban custom configuration file into place.
   template:
-    src: fail2ban.local.j2
+    src: "{{ security_fail2ban_configuration_template }}"
     dest: /etc/fail2ban/fail2ban.local
     owner: root
     group: root
