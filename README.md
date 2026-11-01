@@ -57,6 +57,13 @@ A list of users allowed to connect to the host over SSH.  If no user is defined 
 
 A list of groups allowed to connect to the host over SSH.  If no group is defined in the list, the task will be skipped.
 
+    security_ssh_config_dropin: true
+    security_ssh_config_dropin_path: /etc/ssh/sshd_config.d/00-ansible-security.conf
+
+If `sshd_config` includes `sshd_config.d/*.conf` (as on Debian 12+, Ubuntu 22.04+, and RHEL/Rocky 9+), the SSH settings above are written to this drop-in file, which takes precedence over `sshd_config` and over other drop-ins like `50-cloud-init.conf` that could otherwise re-enable password authentication. Otherwise, or if `security_ssh_config_dropin` is `false`, they're written to `sshd_config` directly.
+
+When switching to the drop-in file, the role removes the settings it manages from `sshd_config` (`PasswordAuthentication`, `PermitRootLogin`, `Port`, `UseDNS`, `PermitEmptyPasswords`, `ChallengeResponseAuthentication`, `GSSAPIAuthentication`, `X11Forwarding`, and `AllowUsers`/`AllowGroups` if `security_ssh_allowed_users`/`security_ssh_allowed_groups` are set), since earlier versions of this role wrote them there. To keep managing `sshd_config` directly, set `security_ssh_config_dropin: false`.
+
     security_sshd_state: started
 
 The state of the SSH daemon. Typically this should remain `started`.

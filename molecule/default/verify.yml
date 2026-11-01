@@ -1,0 +1,16 @@
+---
+- name: Verify
+  hosts: all
+
+  tasks:
+    - name: Get the effective SSH configuration.
+      command: sshd -T
+      register: sshd_effective_config
+      changed_when: false
+
+    - name: Verify SSH settings are applied.
+      assert:
+        that:
+          - "'passwordauthentication no' in sshd_effective_config.stdout_lines"
+          - "'permitrootlogin no' in sshd_effective_config.stdout_lines"
+          - "'x11forwarding no' in sshd_effective_config.stdout_lines"
