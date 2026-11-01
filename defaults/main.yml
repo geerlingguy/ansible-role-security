@@ -12,6 +12,10 @@ security_ssh_restart_handler_state: restarted
 security_ssh_allowed_users: []
 security_ssh_allowed_groups: []
 
+# Write SSH settings to a drop-in file when sshd_config includes sshd_config.d.
+security_ssh_config_dropin: true
+security_ssh_config_dropin_path: /etc/ssh/sshd_config.d/00-ansible-security.conf
+
 security_sudoers_passwordless: []
 security_sudoers_passworded: []
 

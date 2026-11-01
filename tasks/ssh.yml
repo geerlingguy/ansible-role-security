@@ -4,58 +4,116 @@
     name: "{{ security_sshd_name }}"
     state: "{{ security_sshd_state }}"
 
-- name: Update SSH configuration to be more secure.
-  lineinfile:
-    dest: "{{ security_ssh_config_path }}"
-    regexp: "{{ item.regexp }}"
-    line: "{{ item.line }}"
-    state: present
-    validate: 'sshd -T -f %s'
-    mode: 0644
-  with_items:
-    - regexp: "^PasswordAuthentication"
-      line: "PasswordAuthentication {{ security_ssh_password_authentication }}"
-    - regexp: "^PermitRootLogin"
-      line: "PermitRootLogin {{ security_ssh_permit_root_login }}"
-    - regexp: "^Port"
-      line: "Port {{ security_ssh_port }}"
-    - regexp: "^UseDNS"
-      line: "UseDNS {{ security_ssh_usedns }}"
-    - regexp: "^PermitEmptyPasswords"
-      line: "PermitEmptyPasswords {{ security_ssh_permit_empty_password }}"
-    - regexp: "^ChallengeResponseAuthentication"
-      line: "ChallengeResponseAuthentication {{ security_ssh_challenge_response_auth }}"
-    - regexp: "^GSSAPIAuthentication"
-      line: "GSSAPIAuthentication {{ security_ssh_gss_api_authentication }}"
-    - regexp: "^X11Forwarding"
-      line: "X11Forwarding {{ security_ssh_x11_forwarding }}"
-  notify:
-    - reload systemd
-    - restart ssh
+- name: Check if sshd_config includes sshd_config.d.
+  command: >-
+    grep -Eq '^[[:space:]]*Include[[:space:]]+(/etc/ssh/)?sshd_config\.d/\*\.conf'
+    {{ security_ssh_config_path }}
+  register: security_ssh_config_include
+  changed_when: false
+  failed_when: false
+  check_mode: false
+  when: security_ssh_config_dropin | bool
 
-- name: Add configured users allowed to connect over ssh
-  lineinfile:
-    dest: "{{ security_ssh_config_path }}"
-    regexp: '^AllowUsers'
-    line: "AllowUsers {{ security_ssh_allowed_users | join(' ') }}"
-    state: present
-    create: true
-    validate: 'sshd -T -f %s'
-    mode: 0644
-  when: security_ssh_allowed_users | length > 0
-  notify: restart ssh
+- name: Use a drop-in file for SSH settings if sshd_config.d is included.
+  set_fact:
+    security_ssh_use_dropin: >-
+      {{ (security_ssh_config_dropin | bool) and (security_ssh_config_include.rc | default(1) == 0) }}
 
-- name: Add configured groups allowed to connect over ssh
-  lineinfile:
-    dest: "{{ security_ssh_config_path }}"
-    regexp: '^AllowGroups'
-    line: "AllowGroups {{ security_ssh_allowed_groups | join(' ') }}"
-    state: present
-    create: true
-    validate: 'sshd -T -f %s'
-    mode: 0644
-  when: security_ssh_allowed_groups | length > 0
-  notify: restart ssh
+- name: Configure SSH with a drop-in file.
+  when: security_ssh_use_dropin | bool
+  block:
+    # Drop-ins are included at the top of sshd_config, so they take precedence
+    # over sshd_config itself and over later drop-ins (e.g. 50-cloud-init.conf).
+    - name: Ensure the sshd_config.d directory exists.
+      file:
+        path: "{{ security_ssh_config_dropin_path | dirname }}"
+        state: directory
+        owner: root
+        group: root
+        mode: 0755
+
+    - name: Write SSH settings to a drop-in file.
+      template:
+        src: sshd_config_dropin.conf.j2
+        dest: "{{ security_ssh_config_dropin_path }}"
+        owner: root
+        group: root
+        mode: 0644
+        validate: 'sshd -t -f %s'
+      notify: restart ssh
+
+    # Migration: remove settings earlier versions of this role wrote to
+    # sshd_config. AllowUsers/AllowGroups add up across files instead of the
+    # first value winning, so stale entries would still grant access.
+    - name: Remove settings now managed in the drop-in file from sshd_config.
+      lineinfile:
+        dest: "{{ security_ssh_config_path }}"
+        regexp: "{{ item }}"
+        state: absent
+        validate: 'sshd -T -f %s'
+      loop: >-
+        {{ ['^PasswordAuthentication', '^PermitRootLogin', '^Port', '^UseDNS',
+            '^PermitEmptyPasswords', '^ChallengeResponseAuthentication',
+            '^GSSAPIAuthentication', '^X11Forwarding']
+           + (['^AllowUsers'] if security_ssh_allowed_users | length > 0 else [])
+           + (['^AllowGroups'] if security_ssh_allowed_groups | length > 0 else []) }}
+      notify: restart ssh
+
+- name: Configure SSH in sshd_config.
+  when: not (security_ssh_use_dropin | bool)
+  block:
+    - name: Update SSH configuration to be more secure.
+      lineinfile:
+        dest: "{{ security_ssh_config_path }}"
+        regexp: "{{ item.regexp }}"
+        line: "{{ item.line }}"
+        state: present
+        validate: 'sshd -T -f %s'
+        mode: 0644
+      with_items:
+        - regexp: "^PasswordAuthentication"
+          line: "PasswordAuthentication {{ security_ssh_password_authentication }}"
+        - regexp: "^PermitRootLogin"
+          line: "PermitRootLogin {{ security_ssh_permit_root_login }}"
+        - regexp: "^Port"
+          line: "Port {{ security_ssh_port }}"
+        - regexp: "^UseDNS"
+          line: "UseDNS {{ security_ssh_usedns }}"
+        - regexp: "^PermitEmptyPasswords"
+          line: "PermitEmptyPasswords {{ security_ssh_permit_empty_password }}"
+        - regexp: "^ChallengeResponseAuthentication"
+          line: "ChallengeResponseAuthentication {{ security_ssh_challenge_response_auth }}"
+        - regexp: "^GSSAPIAuthentication"
+          line: "GSSAPIAuthentication {{ security_ssh_gss_api_authentication }}"
+        - regexp: "^X11Forwarding"
+          line: "X11Forwarding {{ security_ssh_x11_forwarding }}"
+      notify:
+        - reload systemd
+        - restart ssh
+
+    - name: Add configured users allowed to connect over ssh
+      lineinfile:
+        dest: "{{ security_ssh_config_path }}"
+        regexp: '^AllowUsers'
+        line: "AllowUsers {{ security_ssh_allowed_users | join(' ') }}"
+        state: present
+        create: true
+        validate: 'sshd -T -f %s'
+        mode: 0644
+      when: security_ssh_allowed_users | length > 0
+      notify: restart ssh
+
+    - name: Add configured groups allowed to connect over ssh
+      lineinfile:
+        dest: "{{ security_ssh_config_path }}"
+        regexp: '^AllowGroups'
+        line: "AllowGroups {{ security_ssh_allowed_groups | join(' ') }}"
+        state: present
+        create: true
+        validate: 'sshd -T -f %s'
+        mode: 0644
+      when: security_ssh_allowed_groups | length > 0
+      notify: restart ssh
 
 - name: Add configured user accounts to passwordless sudoers.
   lineinfile:

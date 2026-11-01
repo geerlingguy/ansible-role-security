@@ -40,5 +40,13 @@
         mode: 0644
       when: ansible_facts.distribution == 'Debian'
 
+    # Like cloud-init's drop-in; the role's settings should take precedence.
+    - name: Add a drop-in that enables password authentication.
+      copy:
+        dest: /etc/ssh/sshd_config.d/50-cloud-init.conf
+        content: "PasswordAuthentication yes\n"
+        mode: 0644
+      when: ansible_facts.os_family == 'Debian'
+
   roles:
     - role: geerlingguy.security

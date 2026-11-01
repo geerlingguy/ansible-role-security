@@ -1,0 +1,16 @@
+# {{ ansible_managed }}
+# Files in sshd_config.d are read in order, and the first value set wins.
+Port {{ security_ssh_port }}
+PasswordAuthentication {{ security_ssh_password_authentication }}
+PermitRootLogin {{ security_ssh_permit_root_login }}
+UseDNS {{ security_ssh_usedns }}
+PermitEmptyPasswords {{ security_ssh_permit_empty_password }}
+ChallengeResponseAuthentication {{ security_ssh_challenge_response_auth }}
+GSSAPIAuthentication {{ security_ssh_gss_api_authentication }}
+X11Forwarding {{ security_ssh_x11_forwarding }}
+{% if security_ssh_allowed_users | length > 0 %}
+AllowUsers {{ security_ssh_allowed_users | join(' ') }}
+{% endif %}
+{% if security_ssh_allowed_groups | length > 0 %}
+AllowGroups {{ security_ssh_allowed_groups | join(' ') }}
+{% endif %}
